@@ -16,7 +16,7 @@ spec:
     namespace: argocd
   project: argocd
   source:
-    path: argocd/argocd/
+    path: argocd/
     repoURL: https://github.com/zhurkin/argocd-demo.git
     targetRevision: main
   syncPolicy:
