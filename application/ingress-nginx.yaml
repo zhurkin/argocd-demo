@@ -22,3 +22,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
+  clusterResourceBlacklist:
+  - group: cilium.io
+    kind: CiliumIdentity
