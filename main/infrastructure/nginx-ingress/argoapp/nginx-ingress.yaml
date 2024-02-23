@@ -1,4 +1,3 @@
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -6,26 +5,27 @@ metadata:
   namespace: ingress-nginx
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-project: default
-source:
-  repoURL: 'https://kubernetes.github.io/ingress-nginx'
-  targetRevision: 4.9.1
-  helm:
-    parameters:
-      - name: controller.service.type
-        value: NodePort
-      - name: controller.hostNetwork
-        value: 'true'
-      - name: controller.ingressClassResource.default
-        value: 'true'
-      - name: controller.metrics.enabled
-        value: 'true'
-      - name: controller.autoscaling.maxReplicas
-        value: '2'
-  chart: ingress-nginx
-destination:
-  server: 'https://kubernetes.default.svc'
-  namespace: ingress-nginx
-syncPolicy:
-  syncOptions:
-    - CreateNamespace=true
+spec:  # Добавлено поле spec
+  project: default
+  source:
+    repoURL: 'https://kubernetes.github.io/ingress-nginx'
+    targetRevision: 4.9.1
+    helm:
+      parameters:
+        - name: controller.service.type
+          value: NodePort
+        - name: controller.hostNetwork
+          value: 'true'
+        - name: controller.ingressClassResource.default
+          value: 'true'
+        - name: controller.metrics.enabled
+          value: 'true'
+        - name: controller.autoscaling.maxReplicas
+          value: '2'
+    chart: ingress-nginx
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: ingress-nginx
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
