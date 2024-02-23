@@ -13,7 +13,7 @@ spec:
     namespace: argocd
   project: default
   source:
-    path: root/applications/
+    path: root/application/
     repoURL: https://github.com/zhurkin/argocd-demo.git
     targetRevision: main
   syncPolicy:
