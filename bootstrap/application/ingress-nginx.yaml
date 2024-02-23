@@ -13,8 +13,8 @@ metadata:
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
-  project: default
+    namespace: ingress-nginx
+  project: ingress-nginx
   source:
     path: main/infrastructure/nginx-ingress/application/
     repoURL: https://github.com/zhurkin/argocd-demo.git
