@@ -1,24 +1,25 @@
 # This is the root Applications, which manages all other applications with the app-of-apps-pattern.
-apiVersion: argoproj.io/v1alpha1
-kind: Application
+apiVersion: argoproj.io/v1alpha1 # Версия API ArgoCD
+kind: Application # Тип ресурса, в данном случае - приложение
 metadata:
-  name: bootstrap
-  namespace: argocd
-# finalizer disabled, because otherwise everything under this Application would be deleted as well, if this Application is deleted by accident
+  name: bootstrap # Имя приложения
+  namespace: argocd # Пространство имен, в котором будет развернуто приложение
+# finalizer отключен, так как это корневой проект. Случайное удаление удалит всю цепочку проектов.
+# Финализатор ArgoCD. Если приложение ArgoCD будет удалено, этот финализатор гарантирует, что все ресурсы, связанные с этим приложением, также будут удалены.
 #  finalizers:
 #    - resources-finalizer.argocd.argoproj.io
 spec:
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: argocd
-  project: default
+  destination: 
+    server: https://kubernetes.default.svc # URL сервера Kubernetes, на котором будет развернуто приложение
+    namespace: argocd # Пространство имен, в котором будет развернуто приложение
+  project: default # Проект ArgoCD, к которому относится приложение
   source:
-    path: application/
-    repoURL: https://github.com/zhurkin/argocd-demo.git
-    targetRevision: main
+    path: application/ # Путь к каталогу в репозитории, содержащему манифесты приложения
+    repoURL: https://github.com/zhurkin/argocd-demo.git # URL репозитория, содержащего манифесты приложения
+    targetRevision: main # Ветка, тег или хэш коммита в репозитории, с которого будут взяты манифесты приложения
     directory:
-      recurse: true
+      recurse: true # Если true, ArgoCD будет рекурсивно искать манифесты в подкаталогах
   syncPolicy:
-    automated:
-      prune: false # is set to false to prevent projects to be deleted by accident
-      selfHeal: true
+    automated: # Политика автоматической синхронизации
+      prune: false # Если true, объекты, которые отсутствуют в Git, будут автоматически удаляться
+      selfHeal: true # Если true, ArgoCD будет автоматически восстанавливать изменения, которые не соответствуют состоянию Git
