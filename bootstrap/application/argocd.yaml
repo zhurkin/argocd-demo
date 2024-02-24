@@ -19,6 +19,8 @@ spec:
     path: argocd/
     repoURL: https://github.com/zhurkin/argocd-demo.git
     targetRevision: main
+    directory:
+      recurse: true
   syncPolicy:
     automated:
       prune: false # is set to false to prevent argo from deleting itself
