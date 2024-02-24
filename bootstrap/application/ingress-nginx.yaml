@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-nginx
+  name: ingress-nginx-bootstrap
   namespace: argocd
   annotations:
     # Only app with the sync-status-unknown alert, so that we only get one alert when SCM is not reachable.
