@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+spec:
+  destination:
+    name: 'argocd-app'
+    namespace: argocd
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: 'https://argoproj.github.io/argo-helm'
+    targetRevision: 6.3.1
+    chart: argo-cd
+  project: default
+  syncPolicy:
+    automated: null
