@@ -20,6 +20,4 @@ spec:
     repoURL: https://github.com/zhurkin/argocd-demo.git
     targetRevision: main
   syncPolicy:
-    automated:
-      prune: true # is set to false to prevent argo from deleting itself
-      selfHeal: true
+    automated: null
