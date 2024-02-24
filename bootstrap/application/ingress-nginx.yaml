@@ -16,7 +16,7 @@ spec:
     namespace: argocd
   project: default
   source:
-    path: main/infrastructure/nginx-ingress/application/
+    path: infrastructure/nginx-ingress/application/
     repoURL: https://github.com/zhurkin/argocd-demo.git
     targetRevision: main
   syncPolicy:
