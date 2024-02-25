@@ -157,17 +157,3 @@ data:
       - name: helper-pod
         image: busybox
         imagePullPolicy: IfNotPresent
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: local-path-pvc
-  namespace: local-path-storage
-spec:
-  storageClassName: local-path
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 30Gi
