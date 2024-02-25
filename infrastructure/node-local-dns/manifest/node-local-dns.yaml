@@ -1,3 +1,4 @@
+#https://docs.cilium.io/en/stable/network/kubernetes/local-redirect-policy/#node-local-dns-cache
 apiVersion: v1
 kind: ServiceAccount
 metadata:
