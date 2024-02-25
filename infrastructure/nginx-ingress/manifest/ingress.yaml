@@ -17,8 +17,7 @@ metadata:
       }
 spec:
   rules:
-  - host: "*"
-    http:
+  - http:
       paths:
       - path: /
         pathType: Prefix
