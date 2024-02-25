@@ -16,7 +16,7 @@ spec:
     namespace: argocd
   project: default
   source:
-    path: infrastructure/victoriametrics/application/
+    path: observability/victoriametric/application/
     repoURL: https://github.com/zhurkin/argocd-demo.git
     targetRevision: main
   syncPolicy:
