@@ -16,7 +16,7 @@ spec:
     namespace: argocd
   project: default
   source:
-    path: infrastructure/node-local-dns/application/
+    path: infrastructure/node-local-dns/manifest/
     repoURL: https://github.com/zhurkin/argocd-demo.git
     targetRevision: main
   syncPolicy:
