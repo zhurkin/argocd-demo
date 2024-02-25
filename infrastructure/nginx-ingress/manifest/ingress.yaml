@@ -5,15 +5,10 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/server-snippet: |
-      server {
-        listen 80 default_server;
-        server_name _;
-        
-        location / {
-          add_header  Content-Type  text/plain;
-          return 200 "OK \n";
-        }
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      location / {
+        add_header  Content-Type  text/plain;
+        return 200 "OK \n";
       }
 spec:
   rules:
