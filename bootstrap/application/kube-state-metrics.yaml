@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-state-metrics-bootstrap
+  namespace: argocd
+  annotations:
+    # Only app with the sync-status-unknown alert, so that we only get one alert when SCM is not reachable.
+    # Otherwise, there would be a spam wave by every application everytime the SCM is not reachable.
+    # notifications.argoproj.io/subscribe.on-sync-status-unknown.email:  info@example.org
+# finalizer disabled, because otherwise everything under this Application would be deleted as well, if this Application is deleted by accident
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  project: default
+  source:
+    path: observability/kube-state-metrics/application/
+    repoURL: https://github.com/zhurkin/argocd-demo.git
+    targetRevision: main
+  syncPolicy:
+    automated: null
