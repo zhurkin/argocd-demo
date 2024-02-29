@@ -8,6 +8,10 @@ spec:
   source:
     repoURL: 'https://prometheus-community.github.io/helm-charts'
     targetRevision: 4.30.3
+    helm:
+      parameters:
+        - name: nameOverride
+          value: node-exporter
     chart: prometheus-node-exporter
   destination:
     server: 'https://kubernetes.default.svc'
