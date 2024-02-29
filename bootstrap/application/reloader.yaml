@@ -19,5 +19,7 @@ spec:
     path: infrastructure/reloader/application/
     repoURL: https://github.com/zhurkin/argocd-demo.git
     targetRevision: main
-  syncPolicy:
-    automated: null
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
