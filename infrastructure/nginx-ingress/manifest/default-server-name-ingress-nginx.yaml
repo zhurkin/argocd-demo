@@ -23,12 +23,15 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: robots-txt-ingress
+  name: robots-nginx-ingress
   namespace: ingress-nginx
   annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/server-snippet: |
-      add_header Content-Type text/plain;
-      return 200 "User-agent: *\nDisallow: /\n";
+      location = /robots.txt {
+        add_header  Content-Type  text/plain;
+        return 200 "User-agent: *\nDisallow: /\n";
+      }
 spec:
   rules:
   - host: ""
