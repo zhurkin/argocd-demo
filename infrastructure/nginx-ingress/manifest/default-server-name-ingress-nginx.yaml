@@ -6,7 +6,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/server-snippet: |
       add_header Content-Type text/plain;
-      return 200 "OK \n";
+      return 200 "OK1 \n";
 spec:
   rules:
   - host: ""
