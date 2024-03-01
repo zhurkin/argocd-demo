@@ -19,3 +19,25 @@ spec:
             name: does-not-matter
             port:
               number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: robots-txt-ingress
+  namespace: ingress-nginx
+  annotations:
+    nginx.ingress.kubernetes.io/server-snippet: |
+      add_header Content-Type text/plain;
+      return 200 "User-agent: *\nDisallow: /\n";
+spec:
+  rules:
+  - host: ""
+    http:
+      paths:
+      - path: /robots.txt
+        pathType: Prefix
+        backend:
+          service:
+            name: does-not-matter
+            port:
+              number: 80
