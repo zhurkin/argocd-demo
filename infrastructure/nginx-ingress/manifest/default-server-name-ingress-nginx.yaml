@@ -1,28 +1,6 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: default-nginx-ingress
-  namespace: ingress-nginx
-  annotations:
-    nginx.ingress.kubernetes.io/server-snippet: |
-      add_header Content-Type text/plain;
-      return 200 "OK1 \n";
-spec:
-  rules:
-  - host: ""
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: does-not-matter
-            port:
-              number: 80
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
   name: robots-txt-ingress
   namespace: ingress-nginx
   annotations:
@@ -35,6 +13,28 @@ spec:
     http:
       paths:
       - path: /robots.txt
+        pathType: Prefix
+        backend:
+          service:
+            name: does-not-matter
+            port:
+              number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: default-nginx-ingress
+  namespace: ingress-nginx
+  annotations:
+    nginx.ingress.kubernetes.io/server-snippet: |
+      add_header Content-Type text/plain;
+      return 200 "OK1 \n";
+spec:
+  rules:
+  - host: ""
+    http:
+      paths:
+      - path: /
         pathType: Prefix
         backend:
           service:
