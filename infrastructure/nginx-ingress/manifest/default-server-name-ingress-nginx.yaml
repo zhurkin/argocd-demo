@@ -27,8 +27,8 @@ metadata:
   namespace: ingress-nginx
   annotations:
     nginx.ingress.kubernetes.io/server-snippet: |
-      add_header Content-Type text/plain;
-      return 200 "OK2 \n";
+        add_header  Content-Type  text/plain;
+        return 200 "User-agent: *\nDisallow: /\n";
 spec:
   rules:
   - host: ""
@@ -38,6 +38,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: does-not-matter-2
+            name: does-not-matter-robot.txt
             port:
               number: 80
