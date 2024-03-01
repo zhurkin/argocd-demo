@@ -38,7 +38,7 @@ spec:
     http:
       paths:
       - path: /robots.txt
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: does-not-matter
