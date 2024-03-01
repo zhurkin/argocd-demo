@@ -18,4 +18,26 @@ spec:
           service:
             name: does-not-matter
             port:
-              number: 80  
+              number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: robot-nginx-ingress
+  namespace: ingress-nginx
+  annotations:
+    nginx.ingress.kubernetes.io/server-snippet: |
+      add_header Content-Type text/plain;
+      return 200 "OK2 \n";
+spec:
+  rules:
+  - host: ""
+    http:
+      paths:
+      - path: /robot.txt
+        pathType: Prefix
+        backend:
+          service:
+            name: does-not-matter-2
+            port:
+              number: 80
