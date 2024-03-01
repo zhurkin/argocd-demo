@@ -22,6 +22,8 @@ spec:
           value: 'true'
         - name: controller.autoscaling.maxReplicas
           value: '2'
+        - name: controller.allowSnippetAnnotations
+          value: 'true'
     chart: ingress-nginx
   destination:
     server: 'https://kubernetes.default.svc'
