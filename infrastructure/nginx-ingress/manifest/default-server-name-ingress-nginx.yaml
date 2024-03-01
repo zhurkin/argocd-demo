@@ -38,6 +38,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: does-not-matter-robots.txt
+            name: does-not-matter-robot
             port:
               number: 80
