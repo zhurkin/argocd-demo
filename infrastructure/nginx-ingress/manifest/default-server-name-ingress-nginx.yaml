@@ -34,10 +34,10 @@ spec:
   - host: ""
     http:
       paths:
-      - path: /robot.txt
+      - path: /robots.txt
         pathType: Prefix
         backend:
           service:
-            name: does-not-matter-robot.txt
+            name: does-not-matter-robots.txt
             port:
               number: 80
