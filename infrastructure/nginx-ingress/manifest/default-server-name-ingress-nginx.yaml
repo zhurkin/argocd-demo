@@ -1,8 +1,12 @@
-apiVersion: networking.k8s.io/v1
+Ingress apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: default-nginx-ingress
   namespace: ingress-nginx
+  annotations:
+    nginx.ingress.kubernetes.io/server-snippet: |
+      add_header Content-Type text/plain;
+      return 200 "OK1 \n";
 spec:
   rules:
   - host: ""
@@ -14,31 +18,4 @@ spec:
           service:
             name: does-not-matter
             port:
-              number: 80
-  ingressClassName: nginx
-  defaultBackend:
-    service:
-      name: does-not-matter
-      port:
-        number: 80
-  template:
-    metadata:
-      annotations:
-        nginx.ingress.kubernetes.io/config-map: nginx-config
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: nginx-config
-  namespace: ingress-nginx
-data:
-  nginx.conf: |
-    location = /robots.txt {
-      add_header Content-Type text/plain;
-      return 200 "User-agent: *\nDisallow: /\n";
-    }
-
-    location / {
-      add_header Content-Type text/plain;
-      return 200 "OK1 \n";
-    }
+              number: 80  
