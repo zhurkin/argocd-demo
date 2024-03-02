@@ -5,13 +5,17 @@ metadata:
   namespace: ingress-nginx
   annotations:
     nginx.ingress.kubernetes.io/server-snippet: |
-      location ~* / {
+      location = / {
       add_header Content-Type text/plain;
       return 200 "OK \n";
       }
       location = /robots.txt {
         add_header Content-Type text/plain;
         return 200 "User-agent: *\nDisallow: /\n";
+      }
+      location ~* / {
+        add_header Content-Type text/plain;
+        return 200 "1\n";
       }
       more_clear_headers Server always;
       more_set_headers "Server: ngx" always;
