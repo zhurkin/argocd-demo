@@ -7,6 +7,11 @@ metadata:
     nginx.ingress.kubernetes.io/server-snippet: |
       add_header Content-Type text/plain;
       return 200 "OK \n";
+    nginx.ingress.kubernetes.io/location-snippet: |
+      location = /robots.txt {
+        add_header Content-Type text/plain;
+        return 200 "User-agent: *\nDisallow: /\n";
+      }
 spec:
   rules:
   - host: ""
@@ -17,27 +22,5 @@ spec:
         backend:
           service:
             name: does-not-matter
-            port:
-              number: 80
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: default-nginx-ingress-other-path
-  namespace: ingress-nginx
-  annotations:
-    nginx.ingress.kubernetes.io/server-snippet: |
-      add_header Content-Type text/html;
-      return 200 "Other Path \n";
-spec:
-  rules:
-  - host: ""
-    http:
-      paths:
-      - path: /other
-        pathType: Prefix
-        backend:
-          service:
-            name: does-not-matter-1
             port:
               number: 80
