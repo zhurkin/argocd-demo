@@ -5,9 +5,10 @@ metadata:
   namespace: ingress-nginx
   annotations:
     nginx.ingress.kubernetes.io/server-snippet: |
+      location = / {
       add_header Content-Type text/plain;
       return 200 "OK \n";
-    nginx.ingress.kubernetes.io/location-snippet: |
+      }
       location = /robots.txt {
         add_header Content-Type text/plain;
         return 200 "User-agent: *\nDisallow: /\n";
