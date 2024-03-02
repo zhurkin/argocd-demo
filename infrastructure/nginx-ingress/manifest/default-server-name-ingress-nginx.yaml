@@ -38,6 +38,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: does-not-matter
+            name: does-not-matter-1
             port:
               number: 80
