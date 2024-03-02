@@ -24,6 +24,8 @@ spec:
           value: '1'
         - name: controller.allowSnippetAnnotations
           value: 'true'
+        - name: controller.metrics.prometheusRule.enabled
+          value: 'true'
     chart: ingress-nginx
   destination:
     server: 'https://kubernetes.default.svc'
