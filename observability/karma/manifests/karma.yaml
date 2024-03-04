@@ -80,67 +80,65 @@ metadata:
   name: karma-config
   namespace: karma
 data:
-  config.yaml: |
-    interval: 60s
-    servers:
-      - name: alertmanager
-        uri: http://localhost:9093
-        timeout: 10s
-        proxy: false
-        readonly: false
-    # Uncomment the following lines if needed
-    # - name: client-auth
-    #   uri: https://alertmanager:9093
-    #   timeout: 10s
-    #   tls:
-    #     ca: /etc/ssl/certs/ca-bundle.crt
-    #     cert: /etc/karma/client.pem
-    #     key: /etc/karma/client.key
+  karma.conf: |
+    alertmanager:
+      interval: 60s
+      servers:
+        - name: alertmanager
+          uri: http://alermanager:9093
+          timeout: 10s
+          proxy: true
+          readonly: false
+          #headers:
+          #  X-Auth-Test: some-token-or-other-string
+        #- name: client-auth
+        #  uri: https://localhost:9093
+        #  timeout: 10s
+        #  tls:
+        #    ca: /etc/ssl/certs/ca-bundle.crt
+        #    cert: /etc/karma/client.pem
+        #    key: /etc/karma/client.key
     annotations:
       default:
         hidden: false
       hidden:
         - help
       visible: []
-    # Uncomment the following lines if needed
-    # custom:
-    #   css: /custom.css
-    #   js: /custom.js
+    #custom:
+    #  css: /custom.css
+    #  js: /custom.js
     debug: false
     filters:
       default:
         - "@receiver=by-cluster-service"
-    # Uncomment the following lines if needed
-    # karma:
-    #   name: karma-prod
-    # labels:
-    #   color:
-    #     static:
-    #       - job
-    #     unique:
-    #       - cluster
-    #       - instance
-    #       - "@receiver"
+    #karma:
+    #  name: karma-prod
+    labels:
+      color:
+        static:
+          - job
+        unique:
+          - cluster
+          - instance
+          - "@receiver"
       keep: []
       strip: []
     listen:
       address: "0.0.0.0"
       port: 8080
       prefix: /
-    # Uncomment the following lines if needed
-    # cors:
-    #   allowedOrigins:
-    #     - https://example.com
+     # cors:
+     #   allowedOrigins:
+     #     - https://example.com
     log:
       config: false
       level: info
-    # Uncomment the following lines if needed
-    # silences:
-    #   comments:
-    #     linkDetect:
-    #       rules:
-    #         - regex: "(DEVOPS-[0-9]+)"
-    #           uriTemplate: https://jira.example.com/browse/$1
+    #silences:
+    #  comments:
+    #    linkDetect:
+    #      rules:
+    #        - regex: "(DEVOPS-[0-9]+)"
+    #          uriTemplate: https://jira.example.com/browse/$1
     receivers:
       keep: []
       strip: []
@@ -157,4 +155,3 @@ data:
       minimalGroupWidth: 420
       alertsPerGroup: 5
       collapseGroups: collapsedOnMobile
-
