@@ -19,7 +19,7 @@ spec:
             storageclass.kubernetes.io/is-default-class: "true"
       paramers:
         - name: storageClass.reclaimPolicy
-          value: Retain
+          value: Delete
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: local-path-provisioner
