@@ -11,10 +11,14 @@ spec:
   source:
     repoURL: 'https://github.com/rancher/local-path-provisioner.git'
     path: deploy/chart/local-path-provisioner
-    targetRevision: master
+    targetRevision: v0.0.26
     helm: 
       valueFiles: 
         - values.yaml
+      valuesObject:
+        storageClass:
+          annotations:
+            storageclass.kubernetes.io/is-default-class: "true"
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: local-path-provisioner
@@ -24,10 +28,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-  sourceType: Helm
-  helm:
-    releaseName: local-path-provisioner
-    values: 
-      storageClass:
-        annotations:
-          storageclass.kubernetes.io/is-default-class: "true"
