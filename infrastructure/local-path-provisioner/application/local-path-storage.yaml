@@ -13,13 +13,13 @@ spec:
     path: deploy/chart/local-path-provisioner
     targetRevision: v0.0.26
     helm:
+      parameters:
+        - name: storageClass.reclaimPolicy
+          value: 'Delete'
       valuesObject:
         storageClass:
           annotations:
-            storageclass.kubernetes.io/is-default-class: "true"
-      paramers:
-        - name: storageClass.reclaimPolicy
-          value: Delete
+            storageclass.kubernetes.io/is-default-class: 'true'
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: local-path-provisioner
