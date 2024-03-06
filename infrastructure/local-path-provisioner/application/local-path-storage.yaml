@@ -13,8 +13,6 @@ spec:
     path: deploy/chart/local-path-provisioner
     targetRevision: v0.0.26
     helm: 
-      valueFiles: 
-        - values.yaml
       valuesObject:
         storageClass:
           annotations:
