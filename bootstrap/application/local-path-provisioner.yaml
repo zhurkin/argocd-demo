@@ -22,4 +22,4 @@ spec:
   syncPolicy:
     automated: # Политика автоматической синхронизации
       prune: true # Если true, объекты, которые отсутствуют в Git, будут автоматически удаляться
-      selfHeal: truel
+      selfHeal: true
