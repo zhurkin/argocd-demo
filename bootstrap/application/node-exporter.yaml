@@ -20,4 +20,6 @@ spec:
     repoURL: https://github.com/zhurkin/argocd-demo.git
     targetRevision: main
   syncPolicy:
-    automated: null
+    automated: # Политика автоматической синхронизации
+      prune: true # Если true, объекты, которые отсутствуют в Git, будут автоматически удаляться
+      selfHeal: true
