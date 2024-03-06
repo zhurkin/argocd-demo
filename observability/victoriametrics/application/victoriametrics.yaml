@@ -9,9 +9,9 @@ spec:
     repoURL: 'https://victoriametrics.github.io/helm-charts/'
     targetRevision: 0.28.1
     helm:
-    parameters:
-      - name: nameOverride
-        value: victoria-metrics-operator
+      parameters:
+        - name: nameOverride
+          value: victoria-metrics-operator
     chart: victoria-metrics-operator
   destination:
     server: 'https://kubernetes.default.svc'
