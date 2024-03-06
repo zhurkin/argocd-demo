@@ -13,13 +13,13 @@ spec:
     path: deploy/chart/local-path-provisioner
     targetRevision: v0.0.26
     helm:
-      paramers:
-        - name: storageClass.reclaimPolicy
-          value: Retain
       valuesObject:
         storageClass:
           annotations:
             storageclass.kubernetes.io/is-default-class: "true"
+      paramers:
+        - name: storageClass.reclaimPolicy
+          value: Retain
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: local-path-provisioner
