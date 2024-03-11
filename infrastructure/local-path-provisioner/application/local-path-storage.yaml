@@ -18,8 +18,7 @@ spec:
           value: Delete
         - name: storageClass.defaultClass
           value: "true"
-        - name: storageClass.defaultVolumeType
-          value: "true"
+
 #      valuesObject:
 #        storageClass:
 #          annotations:
