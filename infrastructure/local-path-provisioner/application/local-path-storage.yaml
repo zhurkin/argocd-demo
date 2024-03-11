@@ -16,10 +16,12 @@ spec:
       parameters:
         - name: storageClass.reclaimPolicy
           value: 'Delete'
-      valuesObject:
-        storageClass:
-          annotations:
-            storageclass.kubernetes.io/is-default-class: 'true'
+        - name: storageClass.defaultVolumeType
+          value: 'true'
+#      valuesObject:
+#        storageClass:
+#          annotations:
+#            storageclass.kubernetes.io/is-default-class: 'true'
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: local-path-provisioner
