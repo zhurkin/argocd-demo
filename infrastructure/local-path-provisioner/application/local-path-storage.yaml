@@ -15,9 +15,9 @@ spec:
     helm:
       parameters:
         - name: storageClass.reclaimPolicy
-          value: 'Delete'
+          value: Delete
         - name: storageClass.defaultVolumeType
-          value: 'true'
+          value: true
 #      valuesObject:
 #        storageClass:
 #          annotations:
