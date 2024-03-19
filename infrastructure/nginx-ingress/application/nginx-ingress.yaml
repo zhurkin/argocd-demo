@@ -20,8 +20,6 @@ spec:
           value: 'true'
         - name: controller.metrics.enabled
           value: 'true'
-        - name: controller.autoscaling.maxReplicas
-          value: '1'
         - name: controller.allowSnippetAnnotations
           value: 'true'
     chart: ingress-nginx
