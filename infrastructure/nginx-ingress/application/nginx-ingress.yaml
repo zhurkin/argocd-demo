@@ -22,6 +22,8 @@ spec:
           value: 'true'
         - name: controller.allowSnippetAnnotations
           value: 'true'
+        - name: controller.containerPort.http
+          value: '80,8080'
     chart: ingress-nginx
   destination:
     server: 'https://kubernetes.default.svc'
