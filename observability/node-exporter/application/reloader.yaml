@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://stakater.github.io/stakater-charts'
-    targetRevision: 1.0.71
+    targetRevision: 1.0.72
     helm:
       parameters:
         - name: fullnameOverride
