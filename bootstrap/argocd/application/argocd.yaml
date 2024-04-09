@@ -1,16 +1,23 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: argocd
+project: default
+source:
+  repoURL: 'https://argoproj.github.io/argo-helm'
+  targetRevision: 6.7.10
+#  helm:
+#    parameters:
+#      - name: server.ingress.enabled
+#        value: 'true'
+#      - name: server.metrics.enabled
+#        value: 'true'
+#      - name: server.ingress.hostname
+#        value: argocd.example.loc
+#    values: |-
+#      server:
+#        ingress:
+#          enabled: true
+#          annotations:
+#            nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+#            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+  chart: argo-cd
+destination:
+  server: 'https://kubernetes.default.svc'
   namespace: argocd
-spec:
-  destination:
-    namespace: argocd
-    server: 'https://kubernetes.default.svc'
-  source:
-    repoURL: 'https://argoproj.github.io/argo-helm'
-    targetRevision: 6.7.10
-    chart: argo-cd
-  project: default
-  syncPolicy:
-    automated: null
