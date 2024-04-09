@@ -10,6 +10,8 @@ source:
 #        value: 'true'
 #      - name: server.ingress.hostname
 #        value: argocd.example.loc
+#      - name: server.ingress.tls
+#        value: 'true'
 #    values: |-
 #      server:
 #        ingress:
