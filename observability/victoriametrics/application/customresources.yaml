@@ -15,12 +15,13 @@ spec:
   - url: http://vmsingle.vm.svc:8429/api/v1/write
   scrapeInterval: 20s
   selectAllByDefault: true
+  vmAgentExternalLabelName: vmagent
 
 ---
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMSingle
 metadata:
-  name: vmsingle
+  name: vmsingle-example
   namespace: vm
 spec:
   extraArgs:
