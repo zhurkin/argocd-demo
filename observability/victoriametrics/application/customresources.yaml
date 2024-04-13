@@ -1,0 +1,89 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAgent
+metadata:
+  name: vmagent
+  namespace: vm
+spec:
+  externalLabels:
+    cluster: cluster-name
+  extraArgs:
+    promscrape.dropOriginalLabels: "true"
+    promscrape.streamParse: "true"
+  image:
+    tag: v1.99.0
+  remoteWrite:
+  - url: http://vmsingle.vm.svc:8429/api/v1/write
+  scrapeInterval: 20s
+  selectAllByDefault: true
+
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMSingle
+metadata:
+  name: vmsingle
+  namespace: vm
+spec:
+  extraArgs:
+    vmalert.proxyURL: http://vmalert.vm.svc:8080
+  image:
+    tag: v1.99.0
+  replicaCount: 1
+  retentionPeriod: "1"
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 20Gi
+
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAlert
+metadata:
+  name: vmalert
+  namespace: vm
+spec:
+  datasource:
+    url: http://vmsingle.vm.svc:8429/
+  evaluationInterval: 15s
+  externalLabels: {}
+  extraArgs:
+    remoteWrite.disablePathAppend: "true"
+  image:
+    tag: v1.99.0
+  # notifiers:
+  # - url: http://vmalertmanager-0.vmalertmanager.vm.svc:9093
+  remoteRead:
+    url: http://vmsingle.vm.svc:8429/
+  remoteWrite:
+    url: http://vmsingle.vm.svc:8429/api/v1/write
+  selectAllByDefault: true
+
+# ---
+# apiVersion: operator.victoriametrics.com/v1beta1
+# kind: VMAlertmanager
+# metadata:
+#   name: vmalertmanager
+#   namespace: vm
+# spec:
+#   externalURL: ""
+#   image:
+#     tag: v0.25.0
+#   routePrefix: /
+#   selectAllByDefault: true
+#   configSecret: alertmanager
+#   templates:
+#   - name: alertmanager-monzo-tpl
+#     key: monzo.tmpl
+
+
+
+
+
+
+
+
+
+
+
+
