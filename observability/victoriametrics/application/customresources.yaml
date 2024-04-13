@@ -1,7 +1,7 @@
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMAgent
 metadata:
-  name: vmagent
+  name: agent
   namespace: vm
 spec:
   externalLabels:
@@ -12,7 +12,7 @@ spec:
   image:
     tag: v1.99.0
   remoteWrite:
-  - url: http://vmsingle.vm.svc:8429/api/v1/write
+  - url: http://vmsingle-single.vm.svc:8429/api/v1/write
   scrapeInterval: 20s
   selectAllByDefault: true
   vmAgentExternalLabelName: vmagent
@@ -21,11 +21,11 @@ spec:
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMSingle
 metadata:
-  name: vmsingle-example
+  name: single
   namespace: vm
 spec:
   extraArgs:
-    vmalert.proxyURL: http://vmalert.vm.svc:8080
+    vmalert.proxyURL: http://vmalert-alert.vm.svc:8080
   image:
     tag: v1.99.0
   replicaCount: 1
@@ -35,17 +35,17 @@ spec:
     - ReadWriteOnce
     resources:
       requests:
-        storage: 20Gi
+        storage: 15Gi
 
 ---
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMAlert
 metadata:
-  name: vmalert
+  name: alert
   namespace: vm
 spec:
   datasource:
-    url: http://vmsingle.vm.svc:8429/
+    url: http://vmsingle-single.vm.svc:8429/
   evaluationInterval: 15s
   externalLabels: {}
   extraArgs:
@@ -55,9 +55,9 @@ spec:
   # notifiers:
   # - url: http://vmalertmanager-0.vmalertmanager.vm.svc:9093
   remoteRead:
-    url: http://vmsingle.vm.svc:8429/
+    url: http://vmsingle-single.vm.svc:8429/
   remoteWrite:
-    url: http://vmsingle.vm.svc:8429/api/v1/write
+    url: http://vmsingle-single.vm.svc:8429/api/v1/write
   selectAllByDefault: true
 
 # ---
