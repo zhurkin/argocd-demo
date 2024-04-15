@@ -14,7 +14,7 @@ serverTLSBootstrap: true
 If you have already created the cluster you must adapt it by doing the following:
 
 Find and edit the kubelet-config ConfigMap in the kube-system namespace. In that ConfigMap, the kubelet key has a KubeletConfiguration document as its value. Edit the KubeletConfiguration document to set serverTLSBootstrap: true.
-On each node, add the serverTLSBootstrap: true field in /var/lib/kubelet/config.yaml and restart the kubelet with systemctl restart kubelet
+On each node, add the serverTLSBootstrap: true field in   and restart the kubelet with systemctl restart kubelet
 
 kubectl edit configmap kubelet-config -n kube-system
 
