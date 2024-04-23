@@ -22,3 +22,7 @@ add serverTLSBootstrap: true
 
 kubectl get csr
 kubectl certificate approve <CSR-name>
+
+#Not Recomended
+Enable insecure security tls 
+Add helm variable --set args="{--kubelet-insecure-tls}"
