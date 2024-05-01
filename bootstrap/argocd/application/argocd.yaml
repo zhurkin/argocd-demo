@@ -16,15 +16,15 @@ spec:
             ingressClassName: nginx
             annotations:
               cert-manager.io/cluster-issuer: ca-issuer
-            tls: false
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+            tls: true
             extraTls:
               - secretName: argocd-tls-secret
                 hosts:
                   - argocd.home.lab
         global:
           domain: argocd.home.lab
-#        certificate:
-#          enabled: true
     chart: argo-cd
   destination:
     server: 'https://kubernetes.default.svc'
