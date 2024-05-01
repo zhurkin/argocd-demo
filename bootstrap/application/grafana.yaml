@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-bootstrap
+  name: grafana-bootstrap
   namespace: argocd
   annotations:
     # Only app with the sync-status-unknown alert, so that we only get one alert when SCM is not reachable.
@@ -16,12 +16,8 @@ spec:
     namespace: argocd
   project: default
   source:
-    path: bootstrap/argocd/application/
+    path: observability/grafana/application/
     repoURL: https://github.com/cemehov/argocd-demo.git
     targetRevision: main
-    directory:
-      recurse: true
   syncPolicy:
-    automated:
-      prune: false # is set to false to prevent argo from deleting itself
-      selfHeal: true
+    automated: null

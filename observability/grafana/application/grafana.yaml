@@ -7,8 +7,15 @@ spec:
   project: default
   source:
     repoURL: 'https://grafana.github.io/helm-charts'
-    targetRevision: 7.3.7
+    targetRevision: 7.3.8
     chart: grafana
+  helm:
+    values: |-
+      ingress:
+        enabled: true
+        hosts:
+          - grafana.home.lab
+        path: /
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: grafana
