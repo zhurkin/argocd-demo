@@ -9,3 +9,16 @@ ingress:
   - secretName: grafana-tls-secret
     hosts:
       - grafana.home.lab
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: VictoriaMetrics
+      type: prometheus
+      url: http://vmsingle-single.vm.svc:8429
+      access: proxy
+      isDefault: true
+# dashboards:
+#   default:
+#     dashboard:
+#       file: 
