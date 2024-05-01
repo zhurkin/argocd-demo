@@ -104,6 +104,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    cert-manager.io/cluster-issuer: ca-issuer
 spec:
   rules:
   - host: "vm.home.lab"
@@ -116,7 +117,10 @@ spec:
             name: vmsingle-single
             port:
               number: 8429
-
+  tls:
+  - hosts:
+    - vm.home.lab
+    secretName: vm-tls-secret
 
 
 
