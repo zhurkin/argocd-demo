@@ -18,7 +18,9 @@ datasources:
       url: http://vmsingle-single.vm.svc:8429
       access: proxy
       isDefault: true
-# dashboards:
-#   default:
-#     dashboard:
-#       file: 
+dashboards:
+  default:
+    apiserver:
+      url: https://raw.githubusercontent.com/cemehov/argocd-demo/main/observability/grafana/dashboards/apiserver.json
+    cluster-total:
+      url: https://raw.githubusercontent.com/cemehov/argocd-demo/main/observability/grafana/dashboards/cluster-total.json
