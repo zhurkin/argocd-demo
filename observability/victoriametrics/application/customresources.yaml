@@ -85,12 +85,10 @@ metadata:
   namespace: vm
 spec:
   selectAllByDefault: true
-  unauthorizedAccessConfig:
-    - src_paths: ["/*"]
-      url_prefix:
-        - http://vmsingle-single.vm.svc:8429
-  userNamespaceSelector: {}
-  userSelector: {}
+  # unauthorizedAccessConfig:
+  #   - src_paths: ["/*"]
+  #     url_prefix:
+  #       - http://vmsingle-single.vm.svc:8429
   ingress:
     host: vm.home.lab
     class_name: nginx
