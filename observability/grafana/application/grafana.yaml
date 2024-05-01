@@ -14,9 +14,13 @@ spec:
         ingress:
           enabled: true
           hosts:
-            - "grafana.home.lab"
-          path: "/"
-          ingressClassName: nginx
+            - grafana.home.lab
+          annotations:
+            cert-manager.io/cluster-issuer: ca-issuer
+          tls:
+          - secretName: grafana-tls-secret
+            hosts:
+              - grafana.home.lab
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: grafana
