@@ -37,11 +37,11 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: home-lab
-  namespace: cert-manager
+  name: vm-cert
+  namespace: vm
 spec:
   # Secret names are always required.
-  secretName: home-lab-tls
+  secretName: vm-tls-secret
   duration: 2160h # 90d
   renewBefore: 360h # 15d
   subject:
@@ -58,7 +58,6 @@ spec:
   # At least one of a DNS Name, URI, IP address or otherName is required.
   dnsNames:
     - vm.home.lab
-    - grafana.home.lab
   ipAddresses:
     - 192.168.8.34
   issuerRef:
