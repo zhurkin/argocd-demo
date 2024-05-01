@@ -102,8 +102,6 @@ metadata:
   labels:
     app.kubernetes.io/component: monitoring
   annotations:
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     cert-manager.io/cluster-issuer: ca-issuer
 spec:
   rules:
