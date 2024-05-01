@@ -77,23 +77,43 @@ spec:
 #   - name: alertmanager-monzo-tpl
 #     key: monzo.tmpl
 
+# ---
+# apiVersion: operator.victoriametrics.com/v1beta1
+# kind: VMAuth
+# metadata:
+#   name: vmauth
+#   namespace: vm
+# spec:
+#   selectAllByDefault: true
+#   unauthorizedAccessConfig:
+#     - src_paths: ["/*"]
+#       url_prefix:
+#         - http://vmsingle-single.vm.svc:8429
+#   ingress:
+#     host: vm.home.lab
+#     class_name: nginx
+
 ---
-apiVersion: operator.victoriametrics.com/v1beta1
-kind: VMAuth
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: vmauth
+  name: vm-ingress
   namespace: vm
+  labels:
+    app.kubernetes.io/component: monitoring
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
-  selectAllByDefault: true
-  # unauthorizedAccessConfig:
-  #   - src_paths: ["/*"]
-  #     url_prefix:
-  #       - http://vmsingle-single.vm.svc:8429
-  ingress:
-    host: vm.home.lab
-    class_name: nginx
-
-
+  rules:
+  - host: "vm.home.lab"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          serviceName: vmsingle-single
+          servicePort: 8429
 
 
 
