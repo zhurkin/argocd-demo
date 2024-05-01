@@ -52,6 +52,7 @@ spec:
     algorithm: RSA
     encoding: PKCS8
     size: 4096
+    rotationPolicy: Always
   usages:
     - server auth
     - client auth
