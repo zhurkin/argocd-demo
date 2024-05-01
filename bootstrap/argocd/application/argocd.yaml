@@ -3,15 +3,6 @@ source:
   repoURL: 'https://argoproj.github.io/argo-helm'
   targetRevision: 6.7.17
   helm:
-#    parameters:
-#      - name: server.ingress.enabled
-#        value: 'true'
-#      - name: server.metrics.enabled
-#        value: 'true'
-#      - name: server.ingress.hostname
-#        value: argocd.example.loc
-#      - name: server.ingress.tls
-#        value: 'true'
     values: |-
       server:
         ingress:

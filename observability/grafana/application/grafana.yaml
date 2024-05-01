@@ -14,8 +14,9 @@ spec:
       ingress:
         enabled: true
         hosts:
-          - grafana.home.lab
-        path: /
+          - "grafana.home.lab"
+        path: "/"
+        ingressClassName: nginx
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: grafana
