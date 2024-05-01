@@ -1,0 +1,11 @@
+ingress:
+  enabled: true
+  hosts:
+    - grafana.home.lab
+  annotations:
+    cert-manager.io/cluster-issuer: ca-issuer
+  ingressClassName: nginx
+  tls:
+  - secretName: grafana-tls-secret
+    hosts:
+      - grafana.home.lab

@@ -5,23 +5,28 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: 'https://grafana.github.io/helm-charts'
-    targetRevision: 7.3.8
-    chart: grafana
-    helm:
-      values: |-
-        ingress:
-          enabled: true
-          hosts:
-            - grafana.home.lab
-          annotations:
-            cert-manager.io/cluster-issuer: ca-issuer
-          ingressClassName: nginx
-          tls:
-          - secretName: grafana-tls-secret
-            hosts:
-              - grafana.home.lab
+  sources:
+    - repoURL: 'https://grafana.github.io/helm-charts'
+      targetRevision: 7.3.8
+      chart: grafana
+      helm:
+        valueFiles:
+        - $values/observability/grafana/values/values.yaml
+    - repoURL: 'https://github.com/cemehov/argocd-demo.git'
+      targetRevision: HEAD
+      ref: values
+      # values: |-
+      #   ingress:
+      #     enabled: true
+      #     hosts:
+      #       - grafana.home.lab
+      #     annotations:
+      #       cert-manager.io/cluster-issuer: ca-issuer
+      #     ingressClassName: nginx
+      #     tls:
+      #     - secretName: grafana-tls-secret
+      #       hosts:
+      #         - grafana.home.lab
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: grafana
