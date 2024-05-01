@@ -9,14 +9,14 @@ spec:
     repoURL: 'https://grafana.github.io/helm-charts'
     targetRevision: 7.3.8
     chart: grafana
-  helm:
-    values: |-
-      ingress:
-        enabled: true
-        hosts:
-          - "grafana.home.lab"
-        path: "/"
-        ingressClassName: nginx
+    helm:
+      values: |-
+        ingress:
+          enabled: true
+          hosts:
+            - "grafana.home.lab"
+          path: "/"
+          ingressClassName: nginx
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: grafana
