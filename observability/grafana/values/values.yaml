@@ -1,0 +1,40 @@
+ingress:
+  enabled: true
+  hosts:
+    - grafana.home.lab
+  annotations:
+    cert-manager.io/cluster-issuer: ca-issuer
+  ingressClassName: nginx
+  tls:
+  - secretName: grafana-tls-secret
+    hosts:
+      - grafana.home.lab
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: VictoriaMetrics
+      type: prometheus
+      url: http://vmsingle-single.vm.svc:8429
+      access: proxy
+      isDefault: true
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: "default"
+        orgId: 1
+        folder: ""
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+dashboards:
+  default:
+    apiserver:
+      url: https://raw.githubusercontent.com/zhurkin/argocd-demo/main/observability/grafana/dashboards/apiserver.json
+    cluster-total:
+      url: https://raw.githubusercontent.com/zhurkin/argocd-demo/main/observability/grafana/dashboards/cluster-total.json
+    nginx-ingress:
+      url: https://raw.githubusercontent.com/zhurkin/argocd-demo/main/observability/grafana/dashboards/nginx-ingress.json

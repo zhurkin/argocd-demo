@@ -1,0 +1,275 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMNodeScrape
+metadata:
+  name: cadvisor
+  namespace: vm
+spec: 
+  bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+  honorLabels: true
+  honorTimestamps: false
+  interval: 30s
+  metricRelabelConfigs:
+  - action: labeldrop
+    regex: (uid)
+  - action: labeldrop
+    regex: (id|name)
+  - action: drop
+    regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
+    source_labels:
+    - __name__
+  path: /metrics/cadvisor
+  relabelConfigs:
+  - action: labelmap
+    regex: __meta_kubernetes_node_label_(.+)
+  - sourceLabels:
+    - __metrics_path__
+    targetLabel: metrics_path
+  - replacement: kubelet
+    targetLabel: job
+  scheme: https
+  scrapeTimeout: 5s
+  tlsConfig:
+    caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    insecureSkipVerify: true
+
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMNodeScrape
+metadata:
+  name: probes
+  namespace: vm
+spec: 
+  bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+  honorLabels: true
+  honorTimestamps: false
+  interval: 30s
+  metricRelabelConfigs:
+  - action: labeldrop
+    regex: (uid)
+  - action: labeldrop
+    regex: (id|name)
+  - action: drop
+    regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
+    source_labels:
+    - __name__
+  path: /metrics/probes
+  relabelConfigs:
+  - action: labelmap
+    regex: __meta_kubernetes_node_label_(.+)
+  - sourceLabels:
+    - __metrics_path__
+    targetLabel: metrics_path
+  - replacement: kubelet
+    targetLabel: job
+  scheme: https
+  scrapeTimeout: 5s
+  tlsConfig:
+    caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    insecureSkipVerify: true
+
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMNodeScrape
+metadata:
+  name: kubelet
+  namespace: vm
+spec: 
+  bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+  honorLabels: true
+  honorTimestamps: false
+  interval: 30s
+  metricRelabelConfigs:
+  - action: labeldrop
+    regex: (uid)
+  - action: labeldrop
+    regex: (id|name)
+  - action: drop
+    regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
+    source_labels:
+    - __name__
+  relabelConfigs:
+  - action: labelmap
+    regex: __meta_kubernetes_node_label_(.+)
+  - sourceLabels:
+    - __metrics_path__
+    targetLabel: metrics_path
+  - replacement: kubelet
+    targetLabel: job
+  scheme: https
+  scrapeTimeout: 5s
+  tlsConfig:
+    caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    insecureSkipVerify: true
+
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
+metadata:
+  name: apiserver
+  namespace: vm
+spec: 
+  endpoints:
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    port: https
+    scheme: https
+    tlsConfig:
+      caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      serverName: kubernetes
+  jobLabel: component
+  namespaceSelector:
+    matchNames:
+    - default
+  selector:
+    matchLabels:
+      component: apiserver
+      provider: kubernetes
+
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
+metadata:
+  name: coredns
+  namespace: vm
+spec:
+  selector:
+    matchLabels:
+      k8s-app: kube-dns
+  namespaceSelector:
+    matchNames:
+      - "kube-system"
+  endpoints:
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    port: http-metrics
+  jobLabel: jobLabel
+# ---
+# apiVersion: operator.victoriametrics.com/v1beta1
+# kind: VMServiceScrape
+# metadata:
+#   name: grafana
+#   namespace: vm
+# spec:
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/name: grafana
+#   endpoints:
+#   - port: service
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
+metadata:
+  name: kube-controller-manager
+  namespace: vm
+spec:
+  selector:
+    matchLabels:
+      component: kube-controller-manager
+  namespaceSelector:
+    matchNames:
+      - "kube-system"
+  endpoints:
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    port: http-metrics
+    scheme: https
+    tlsConfig:
+      caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      serverName: kubernetes
+  jobLabel: jobLabel
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
+metadata:
+  name: kube-etcd
+  namespace: vm
+spec:
+  selector:
+    matchLabels:
+      component: etcd
+  namespaceSelector:
+    matchNames:
+      - "kube-system"
+  endpoints:
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    port: http-metrics
+    scheme: https
+    tlsConfig:
+      caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+  jobLabel: jobLabel
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
+metadata:
+  name: kube-scheduler
+  namespace: vm
+spec:
+  selector:
+    matchLabels:
+      component: kube-scheduler
+  namespaceSelector:
+    matchNames:
+      - "kube-system"
+  endpoints:
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    port: http-metrics
+    scheme: https
+    tlsConfig:
+      caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+  jobLabel: jobLabel
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
+metadata:
+  name: kube-state-metrics
+  namespace: vm
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kube-state-metrics
+      app.kubernetes.io/instance: kube-state-metrics
+  namespaceSelector:
+    matchNames:
+      - "kube-system"
+  endpoints:
+  - port: http
+    honorLabels: true
+    metricRelabelConfigs:
+      - action: labeldrop
+        regex: (uid|container_id|image_id)
+  jobLabel: app.kubernetes.io/name
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
+metadata:
+  name: node-exporter
+  namespace: vm
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: node-exporter
+      app.kubernetes.io/instance: node-exporter
+  namespaceSelector:
+    matchNames:
+      - "kube-system"
+  endpoints:
+  - metricRelabelConfigs:
+    - action: drop
+      regex: /var/lib/kubelet/pods.+
+      source_labels:
+      - mountpoint
+    port: metrics
+  jobLabel: jobLabel
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
+metadata:
+  name: operator
+  namespace: vm
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: victoria-metrics
+      app.kubernetes.io/name: operator
+  endpoints:
+    - port: http
+  namespaceSelector:
+    matchNames:
+      - vm

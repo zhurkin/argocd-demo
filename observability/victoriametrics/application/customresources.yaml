@@ -1,0 +1,128 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAgent
+metadata:
+  name: agent
+  namespace: vm
+spec:
+  externalLabels:
+    cluster: cluster-name
+  extraArgs:
+    promscrape.dropOriginalLabels: "true"
+    promscrape.streamParse: "true"
+  image:
+    tag: v1.99.0
+  remoteWrite:
+  - url: http://vmsingle-single.vm.svc:8429/api/v1/write
+  scrapeInterval: 20s
+  selectAllByDefault: true
+  vmAgentExternalLabelName: vmagent
+
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMSingle
+metadata:
+  name: single
+  namespace: vm
+spec:
+  extraArgs:
+    vmalert.proxyURL: http://vmalert-alert.vm.svc:8080
+  image:
+    tag: v1.99.0
+  replicaCount: 1
+  retentionPeriod: "1"
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 15Gi
+
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAlert
+metadata:
+  name: alert
+  namespace: vm
+spec:
+  datasource:
+    url: http://vmsingle-single.vm.svc:8429/
+  evaluationInterval: 15s
+  externalLabels: {}
+  extraArgs:
+    remoteWrite.disablePathAppend: "true"
+  image:
+    tag: v1.99.0
+  # notifiers:
+  # - url: http://vmalertmanager-0.vmalertmanager.vm.svc:9093
+  remoteRead:
+    url: http://vmsingle-single.vm.svc:8429/
+  remoteWrite:
+    url: http://vmsingle-single.vm.svc:8429/api/v1/write
+  selectAllByDefault: true
+
+# ---
+# apiVersion: operator.victoriametrics.com/v1beta1
+# kind: VMAlertmanager
+# metadata:
+#   name: vmalertmanager
+#   namespace: vm
+# spec:
+#   externalURL: ""
+#   image:
+#     tag: v0.25.0
+#   routePrefix: /
+#   selectAllByDefault: true
+#   configSecret: alertmanager
+#   templates:
+#   - name: alertmanager-monzo-tpl
+#     key: monzo.tmpl
+
+# ---
+# apiVersion: operator.victoriametrics.com/v1beta1
+# kind: VMAuth
+# metadata:
+#   name: vmauth
+#   namespace: vm
+# spec:
+#   selectAllByDefault: true
+#   unauthorizedAccessConfig:
+#     - src_paths: ["/*"]
+#       url_prefix:
+#         - http://vmsingle-single.vm.svc:8429
+#   ingress:
+#     host: vm.home.lab
+#     class_name: nginx
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vm-ingress
+  namespace: vm
+  labels:
+    app.kubernetes.io/component: monitoring
+  annotations:
+    cert-manager.io/cluster-issuer: ca-issuer
+spec:
+  rules:
+  - host: "vm.home.lab"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: vmsingle-single
+            port:
+              number: 8429
+  tls:
+  - hosts:
+    - vm.home.lab
+    secretName: vm-tls-secret
+
+
+
+
+
+
+

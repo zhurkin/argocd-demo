@@ -8,23 +8,21 @@ spec:
   source:
     repoURL: 'https://argoproj.github.io/argo-helm'
     targetRevision: 6.11.1
-#    helm:
-#      parameters:
-#        - name: server.ingress.enabled
-#          value: 'true'
-#        - name: server.metrics.enabled
-#          value: 'true'
-#        - name: server.ingress.hostname
-#          value: argocd.example.loc
-#        - name: server.ingress.tls
-#          value: 'true'
-#      values: |-
-#        server:
-#          ingress:
-#            enabled: true
-#            annotations:
-#              nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-#              nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    helm:
+      values: |-
+        global:
+          domain: argocd.home.lab
+        certificate:
+          enabled: true
+        server:
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            annotations:
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+              nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+            tls: true
     chart: argo-cd
   destination:
     namespace: argocd

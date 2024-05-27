@@ -1,0 +1,19 @@
+fullnameOverride: "vm"
+argocdReleaseOverride: "victoria-metrics"
+# defaultRules:
+#   create: false
+vmsingle:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - vmsingle.home.lab
+vmagent:
+  enabled: true
+  externalLabels:
+    cluster: home-test-cluster
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - vmagent.home.lab

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: node-exporter-bootstrap
+  name: cert-manager-bootstrap
   namespace: argocd
   annotations:
     # Only app with the sync-status-unknown alert, so that we only get one alert when SCM is not reachable.
@@ -16,10 +16,10 @@ spec:
     namespace: argocd
   project: default
   source:
-    path: observability/node-exporter/application/
+    path: infrastructure/cert-manager/
     repoURL: https://github.com/zhurkin/argocd-demo.git
     targetRevision: main
+    directory:
+      recurse: true
   syncPolicy:
-    automated: # Политика автоматической синхронизации
-      prune: true # Если true, объекты, которые отсутствуют в Git, будут автоматически удаляться
-      selfHeal: true
+    automated: null
