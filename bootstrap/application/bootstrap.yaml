@@ -15,7 +15,7 @@ spec:
   project: default # Проект ArgoCD, к которому относится приложение
   source:
     path: bootstrap/application/ # Путь к каталогу в репозитории, содержащему манифесты приложения
-    repoURL: https://github.com/cemehov/argocd-demo.git # URL репозитория, содержащего манифесты приложения
+    repoURL: https://github.com/zhurkin/argocd-demo.git # URL репозитория, содержащего манифесты приложения
     targetRevision: main # Ветка, тег или хэш коммита в репозитории, с которого будут взяты манифесты приложения
     directory:
       recurse: true # Если true, ArgoCD будет рекурсивно искать манифесты в подкаталогах

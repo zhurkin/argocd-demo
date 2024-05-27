@@ -33,6 +33,8 @@ dashboardProviders:
 dashboards:
   default:
     apiserver:
-      url: https://raw.githubusercontent.com/cemehov/argocd-demo/main/observability/grafana/dashboards/apiserver.json
+      url: https://raw.githubusercontent.com/zhurkin/argocd-demo/main/observability/grafana/dashboards/apiserver.json
     cluster-total:
-      url: https://raw.githubusercontent.com/cemehov/argocd-demo/main/observability/grafana/dashboards/cluster-total.json
+      url: https://raw.githubusercontent.com/zhurkin/argocd-demo/main/observability/grafana/dashboards/cluster-total.json
+    nginx-ingress:
+      url: https://raw.githubusercontent.com/zhurkin/argocd-demo/main/observability/grafana/dashboards/nginx-ingress.json

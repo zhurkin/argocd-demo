@@ -17,7 +17,7 @@ spec:
   project: default
   source:
     path: bootstrap/argocd/application/
-    repoURL: https://github.com/cemehov/argocd-demo.git
+    repoURL: https://github.com/zhurkin/argocd-demo.git
     targetRevision: main
     directory:
       recurse: true
