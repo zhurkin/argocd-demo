@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://argoproj.github.io/argo-helm'
-    targetRevision: 7.1.5
+    targetRevision: 7.3.2
 #    helm:
 #      parameters:
 #        - name: server.ingress.enabled
