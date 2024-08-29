@@ -7,12 +7,18 @@ spec:
   project: default
   source:
     repoURL: 'https://victoriametrics.github.io/helm-charts/'
-    targetRevision: 0.33.5
+    targetRevision: 0.25.5
     helm:
       parameters:
-        - name: nameOverride
-          value: operator
-    chart: victoria-metrics-operator
+#        - name: nameOverride
+#          value: vm
+         - name: prometheus-node-exporter.enabled
+           value: false
+         - name: kube-state-metrics.enabled
+           value: false
+         - name: grafana.enabled
+           value: false
+    chart: victoria-metrics-k8s-stack
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: vm
