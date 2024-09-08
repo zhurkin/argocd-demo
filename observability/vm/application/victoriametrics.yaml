@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: victoria-metrics
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://victoriametrics.github.io/helm-charts/'
+    targetRevision: "0.25.14"
+    helm:
+      parameters:
+         - name: nameOverride
+           value: "vm"
+         - name: defaultDashboardsEnabled
+           value: "false"
+         - name: experimentalDashboardsEnabled
+           value: "false"
+         - name: alertmanager.enabled
+           value: "false"
+         - name: vmalert.enabled
+           value: "false"
+         - name: grafana.enabled
+           value: "false"
+    chart: victoria-metrics-k8s-stack
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: vm2
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
