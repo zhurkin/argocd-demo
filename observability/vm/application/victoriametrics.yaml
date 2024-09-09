@@ -13,21 +13,21 @@ spec:
          - name: nameOverride
            value: vm
          - name: prometheus-node-exporter.enabled
-           value: false
+           value: "false"
          - name: kube-state-metrics.enabled
-           value: false
+           value: "false"
          - name: grafana.enabled
-           value: false
+           value: "false"
          - name: defaultDashboardsEnabled
-           value: false
+           value: "false"
          - name: experimentalDashboardsEnabled
-           value: false
+           value: "false"
          - name: alertmanager.enabled
-           value: false
+           value: "false"
          - name: vmalert.enabled
-           value: false
+           value: "false"
          - name: grafana.enabled
-           value: false
+           value: "false"
     chart: victoria-metrics-k8s-stack
   destination:
     server: 'https://kubernetes.default.svc'
