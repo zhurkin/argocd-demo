@@ -31,7 +31,7 @@ spec:
     chart: victoria-metrics-k8s-stack
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: vm2
+    namespace: vm
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
