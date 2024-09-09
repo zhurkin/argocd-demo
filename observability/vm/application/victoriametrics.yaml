@@ -12,6 +12,12 @@ spec:
       parameters:
          - name: nameOverride
            value: "vm"
+         - name: prometheus-node-exporter.enabled
+           value: false
+         - name: kube-state-metrics.enabled
+           value: false
+         - name: grafana.enabled
+           value: false
          - name: defaultDashboardsEnabled
            value: "false"
          - name: experimentalDashboardsEnabled
