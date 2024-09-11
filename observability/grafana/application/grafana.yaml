@@ -9,6 +9,17 @@ spec:
     repoURL: 'https://grafana.github.io/helm-charts'
     targetRevision: 7.3.8
     chart: grafana
+    helm:
+      values: |-
+        datasources:
+          datasources.yaml:
+            apiVersion: 1
+            datasources:
+            - name: Prometheus
+              type: prometheus
+              url: http://vmsingle-victoria-metrics-vm.vm2.svc:8429/prometheus
+              access: proxy
+              isDefault: true
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: grafana
