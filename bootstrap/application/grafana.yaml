@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-bootstrap
+  namespace: argocd
+  annotations:
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  project: default
+  source:
+    path: observability/grafana/application
+    repoURL: https://github.com/alxmatweew/argo-demo.git #<----- Поменять на свой!
+    targetRevision: main
+    directory:
+      recurse: true
+  syncPolicy:
+    automated: null
