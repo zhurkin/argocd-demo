@@ -11,7 +11,7 @@ spec:
   project: default
   source:
     path: observability/grafana/application
-    repoURL: https://github.com/alxmatweew/argo-demo.git #<----- Поменять на свой!
+    repoURL: https://github.com/zhurkin/argocd-demo.git # <----- Указал твой!
     targetRevision: main
     directory:
       recurse: true
