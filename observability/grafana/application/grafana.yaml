@@ -17,7 +17,7 @@ spec:
             datasources:
             - name: Prometheus
               type: prometheus
-              url: http://vmsingle-victoria-metrics-vm.vm2.svc:8429/prometheus
+              url: http://vmsingle-victoria-metrics-vm.vm.svc:8429/prometheus
               access: proxy
               isDefault: true
   destination:
