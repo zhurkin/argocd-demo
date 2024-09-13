@@ -24,7 +24,7 @@ spec:
          - name: nameOverride
            value: vm
          - name: prometheus-node-exporter.enabled
-           value: "false"
+           value: "true"
          - name: kube-state-metrics.enabled
            value: "false"
          - name: grafana.enabled
