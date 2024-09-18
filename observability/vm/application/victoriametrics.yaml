@@ -18,7 +18,7 @@ spec:
   project: default
   source:
     repoURL: 'https://victoriametrics.github.io/helm-charts/'
-    targetRevision: "0.25.15"
+    targetRevision: "0.25.16"
     helm:
       parameters:
          - name: nameOverride
