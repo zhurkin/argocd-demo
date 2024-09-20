@@ -26,11 +26,11 @@ spec:
          - name: prometheus-node-exporter.enabled
            value: "true"
          - name: kube-state-metrics.enabled
-           value: "false"
+           value: "true"
          - name: grafana.enabled
-           value: "false"
+           value: "true"
          - name: defaultDashboardsEnabled
-           value: "false"
+           value: "true"
          - name: experimentalDashboardsEnabled
            value: "false"
          - name: alertmanager.enabled
