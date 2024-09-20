@@ -37,8 +37,7 @@ spec:
            value: "false"
          - name: vmalert.enabled
            value: "false"
-         - name: grafana.enabled
-           value: "false"
+
          ## Закоментировал, т.к. не получается все параметры так передать. Сделал для этого отдельно раздел в Values-блоке ##
          # - name: kubeEtcd.service.port        # <--- Эта строка в Арго нормально отработала
          #   value: "2381"                      # <--- Эта строка в Арго нормально отработала
