@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki-bootstrap
+  namespace: argocd
+  annotations:
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  project: default
+  source:
+    path: observability/loki/
+    repoURL: https://github.com/alxmatweew/argo-demo.git #<----- Поменяй на свой!
+    targetRevision: main
+    directory:
+      recurse: true
+  syncPolicy:
+    automated: null
+      #prune: false # is set to false to prevent argo from deleting itself
+      #selfHeal: true
