@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: victoriametrics-bootstrap
+  name: vector-bootstrap
   namespace: argocd
   annotations:
 spec:
@@ -10,10 +10,12 @@ spec:
     namespace: argocd
   project: default
   source:
-    path: observability/vm/application
+    path: observability/vector/
     repoURL: https://github.com/zhurkin/argocd-demo.git # <----- Указал твой!
     targetRevision: main
     directory:
       recurse: true
   syncPolicy:
     automated: null
+      #prune: false # is set to false to prevent argo from deleting itself
+      #selfHeal: true

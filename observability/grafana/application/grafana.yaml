@@ -20,6 +20,13 @@ spec:
               url: http://vmsingle-victoria-metrics-vm.vm.svc:8429/prometheus
               access: proxy
               isDefault: true
+            - name: Loki
+              type: loki
+              access: proxy
+              url: http://loki-gateway.loki-stack.svc.cluster.local/
+              jsonData:
+                timeout: 60
+                maxLines: 1000
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: grafana
