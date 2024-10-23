@@ -11,7 +11,7 @@ spec:
   project: default
   source:
     path: observability/loki/
-    repoURL: https://github.com/alxmatweew/argo-demo.git #<----- Поменяй на свой!
+    repoURL: https://github.com/zhurkin/argocd-demo.git # <----- Указал твой!
     targetRevision: main
     directory:
       recurse: true

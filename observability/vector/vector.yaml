@@ -1,0 +1,80 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vector
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://helm.vector.dev'
+    targetRevision: "0.36.1"
+    helm:
+      values: |
+        role: Agent
+        tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
+
+        customConfig:
+          data_dir: /vector-data-dir
+          api:
+            enabled: true
+            address: 127.0.0.1:8686
+            playground: false
+
+          sources:
+            file_messages:
+              type: file
+              include:
+                - /var/log/messages
+
+            kubernetes_logs:
+              type: kubernetes_logs
+
+            host_metrics:
+              filesystem:
+                devices:
+                  excludes: [binfmt_misc]
+                filesystems:
+                  excludes: [binfmt_misc]
+                mountpoints:
+                  excludes: ["*/proc/sys/fs/binfmt_misc"]
+              type: host_metrics
+
+            internal_metrics:
+              type: internal_metrics
+
+          sinks:
+            prom_exporter:
+              type: prometheus_exporter
+              inputs: [host_metrics, internal_metrics]
+              address: 0.0.0.0:9090
+
+            loki_sink_messages:
+              type: loki
+              inputs:
+                - file_messages
+              endpoint: http://loki-gateway.loki-stack.svc.cluster.local
+              encoding:
+                codec: json
+              labels:
+                logger: "vector-messages"
+
+            loki_sink_kube:
+              type: loki
+              inputs:
+                - kubernetes_logs
+              endpoint: http://loki-gateway.loki-stack.svc.cluster.local
+              encoding:
+                codec: json
+              labels:
+                logger: "vector-kube"
+
+    chart: vector
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: vector
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
